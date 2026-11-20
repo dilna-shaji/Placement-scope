@@ -1,0 +1,1239 @@
+PlacementHub – Complete Production-Ready Placement Management System
+
+### ROLE AND RESPONSIBILITY
+
+Act as a Senior Full-Stack Software Architect, Senior Python/Flask Developer, React Developer, Database Architect, DevOps Engineer, Cybersecurity Engineer, QA Engineer and Web Automation/Scraping Engineer.
+
+I am providing you with the following project files:
+
+1. `placementhub.zip` – Complete existing PlacementHub application.
+2. `get_links.py` – Google/Serper job-link collection script.
+3. `intershala.py` – Internshala internship scraping script.
+4. `scrape_linkedin.py` – LinkedIn job collection script.
+5. `step1.py` – Greenhouse job-link collection script.
+6. `step2.py` – Job-detail extraction pipeline.
+
+Your responsibility is to inspect, understand, improve, complete, secure, integrate and prepare this existing application for real-world institutional deployment.
+
+**I DO NOT WANT A NEW APPLICATION. I WANT MY EXISTING APPLICATION COMPLETED AND TRANSFORMED INTO A FULLY FUNCTIONAL, SECURE, PRODUCTION-READY APPLICATION.**
+
+Do not simply provide suggestions, explanations, code snippets or instructions. Actually modify the uploaded project's source code and implement the required functionality.
+
+---
+
+# 1. MOST IMPORTANT RULE: PRESERVE THE EXISTING DESIGN
+
+This is a strict requirement.
+
+I have already spent considerable time developing the user interface and its visual appearance.
+
+DO NOT:
+- Redesign the application.
+- Replace the existing dashboard.
+- Change the existing colour palette.
+- Change the branding, typography or overall visual identity.
+- Remove existing animations or visual effects.
+- Replace the sidebar with a different design.
+- Change the existing module layout unnecessarily.
+- Remove existing components just to simplify development.
+- Replace functional screens with generic templates.
+- Introduce a completely different UI framework.
+
+Preserve the existing:
+- Dashboard design.
+- Sidebar and navigation.
+- Top navigation bar.
+- Cards and tables.
+- Charts and analytics.
+- Animations and transitions.
+- Login and authentication appearance.
+- Existing 20-module structure.
+- Responsive layout and visual hierarchy.
+
+You may improve spacing, responsiveness, accessibility, typography consistency and usability, but only where necessary.
+
+**The objective is to improve the functionality and engineering quality without compromising the existing visual design.**
+
+Every new feature must follow the existing design system.
+
+# 2. FIRST: COMPLETE PROJECT AUDIT
+
+Before modifying anything, thoroughly inspect the entire ZIP file.
+
+Examine:
+- Every frontend component.
+- Every backend module.
+- All API endpoints.
+- Authentication and authorization.
+- Database models.
+- Database migrations.
+- Existing role permissions.
+- File upload and download functionality.
+- Notifications.
+- Reports and exports.
+- Configuration and environment variables.
+- Existing tests.
+- Dependencies.
+- Existing integrations.
+
+Understand how the frontend communicates with the backend and how information is stored.
+
+Identify:
+1. Incomplete functionality.
+2. Broken functionality.
+3. Missing backend APIs.
+4. Missing database relationships.
+5. Incorrect role permissions.
+6. Security vulnerabilities.
+7. Inconsistent validation.
+8. Hardcoded demonstration functionality.
+9. Performance bottlenecks.
+10. Deployment problems.
+
+Do not assume that an existing feature works simply because its UI exists.
+
+Prepare an internal implementation plan, then execute it.
+
+Do not stop after producing an audit report.
+
+# 3. REAL DATABASE AND BACKEND IMPLEMENTATION
+
+The application must operate using a real persistent database.
+
+Configure and thoroughly test MySQL 8 compatibility.
+
+Requirements:
+
+- MySQL 8 must be the production database.
+- SQLAlchemy must manage database operations.
+- Flask-Migrate/Alembic must manage schema migrations.
+- All important application data must persist in the database.
+- No essential business data should exist only in React state or browser storage.
+- Restarting the application must not erase information.
+- Changes made by one authorized user must appear to other authorized users.
+- Database relationships and foreign keys must be properly implemented.
+- Use transactions where multiple database operations must succeed together.
+- Add appropriate indexes and uniqueness constraints.
+- Prevent duplicate records.
+- Implement safe database connection handling.
+- Configure connection pooling and sensible timeouts.
+- Use UTC consistently for stored timestamps.
+
+Test the complete application against MySQL 8, not just SQLite.
+
+Required commands:
+
+`flask db upgrade`
+
+`pytest`
+
+Also run frontend checks:
+
+`npm run lint`
+
+`npm run build`
+
+Resolve actual errors instead of hiding them.
+
+Do not disable tests or weaken security checks merely to obtain a successful test result.
+
+# 4. AUTHENTICATION AND USER ROLE MANAGEMENT
+
+Implement a complete and secure user-management system.
+
+Each person must have an individual login.
+
+No shared accounts.
+
+Support the existing institutional roles and inspect the current RBAC implementation before modifying it.
+
+The system should support roles such as:
+
+- Super Admin
+- Director
+- Placement Officer / TPO
+- Placement Coordinator
+- Department Faculty
+- Recruiter
+- Student
+
+Do not assume every role has identical permissions.
+
+Implement:
+
+1. Individual accounts.
+2. Secure login and logout.
+3. Password hashing using Argon2.
+4. Password reset through verified email links.
+5. Password change functionality.
+6. First-login mandatory password change.
+7. Account activation and deactivation.
+8. Failed-login protection.
+9. Temporary account lockout.
+10. Session expiration.
+11. Secure session invalidation after password changes.
+12. Login history.
+13. Account creation and approval workflows.
+14. Secure account recovery.
+
+A user must never be able to assign themselves a higher role.
+
+Only appropriately authorized administrators can create or modify roles.
+
+Create a secure initial administrator bootstrap process.
+
+Do not hardcode default administrator credentials.
+
+Provide a documented method to create the first Super Admin through a protected CLI command or deployment setup process.
+
+Support the creation of a second Super Admin to prevent institutional lockout.
+
+Do not automatically create fake users or sample accounts.
+
+# 5. STUDENT PORTAL – NEW FEATURE
+
+Develop a complete student-facing portal.
+
+Students must have their own login credentials.
+
+Students should be able to:
+
+- View their personal dashboard.
+- View their profile.
+- Update permitted personal information.
+- View eligible job vacancies.
+- Search and filter opportunities.
+- View company information.
+- View job descriptions.
+- View eligibility criteria.
+- Check academic requirements.
+- Upload and update resumes.
+- Upload permitted certificates.
+- Apply for vacancies.
+- View application history.
+- Track application status.
+- View interview schedules.
+- Receive notifications.
+- View placement and internship information.
+- View their own documents.
+- View their placement status.
+
+Students must not be able to:
+
+- Access another student's private information.
+- Modify their academic eligibility without authorization.
+- Change their application status.
+- Access administrative functions.
+- View confidential institutional information.
+- Access another student's uploaded documents.
+
+Implement application statuses such as:
+
+- Applied
+- Under Review
+- Shortlisted
+- Interview Scheduled
+- Selected
+- Rejected
+- Withdrawn
+
+Ensure that application status changes are recorded in the audit log.
+
+# 6. EXCEL IMPORT AND EXPORT
+
+Implement bulk student import through Excel.
+
+Use the existing vacancy-import functionality as a reference.
+
+Requirements:
+
+- Support XLSX files.
+- Provide a downloadable Excel template.
+- Validate every row before importing.
+- Check mandatory columns.
+- Validate email addresses.
+- Validate student IDs and registration numbers.
+- Prevent duplicate students.
+- Validate department references.
+- Validate academic information.
+- Display row-level validation errors.
+- Provide a preview before final import.
+- Allow administrators to correct errors and retry.
+- Use database transactions.
+- Generate an import summary.
+
+Never silently import invalid records.
+
+Do not automatically create accounts for invalid or incomplete student records.
+
+If accounts are generated from imported student records, implement a secure invitation and password-setup process.
+
+Also support suitable Excel exports for authorized users.
+
+# 7. RECRUITER PORTAL AND RECRUITMENT DRIVE MANAGEMENT
+
+Recruiters should have their own individual accounts associated with their company.
+
+Implement:
+
+- Recruiter dashboard.
+- Company profile management.
+- Vacancy creation.
+- Vacancy editing.
+- Recruitment drive scheduling.
+- Drive modification.
+- Drive cancellation.
+- Eligible department selection.
+- Eligible student selection.
+- Interview-round configuration.
+- Application review.
+- Shortlisting.
+- Selection updates.
+- Recruitment statistics.
+- Notifications.
+
+Recruiters must only access information belonging to their own company.
+
+A recruiter must never access another company's confidential information.
+
+Implement an approval workflow for vacancies and recruitment drives where institutional approval is required.
+
+# 8. COMPLETE THE EXISTING 20 MODULES
+
+Inspect all 20 existing modules and make sure each is connected to real backend functionality.
+
+Do not remove any existing module.
+
+Pay special attention to:
+
+1. Dashboard.
+2. User and Role Management.
+3. Student Management.
+4. Academic Department.
+5. Company Management.
+6. Vacancy Management.
+7. Opportunity Collection.
+8. Vacancy Verification.
+9. Company Outreach.
+10. Recruitment Drive.
+11. Student Application.
+12. Internship Management.
+13. Placement Management.
+14. Analytics and Insights.
+15. Reports and Export.
+16. Notifications.
+17. Documents and Certificates.
+18. Activity Logs.
+19. Security and Privacy.
+20. System Settings.
+
+Complete the following existing gaps:
+
+- Department cards must refresh immediately after edits.
+- Notifications should use real-time updates rather than relying exclusively on 60-second polling.
+- Implement pagination on the backend.
+- Implement search, sorting and filtering through server-side queries.
+- Add proper loading states.
+- Add meaningful empty states.
+- Add error handling.
+- Ensure all CRUD operations persist correctly.
+- Ensure the interface refreshes after successful operations.
+- Prevent stale data.
+- Add proper confirmation for destructive actions.
+
+Use WebSockets or Server-Sent Events where appropriate for real-time notifications.
+
+Implement reconnection handling and secure user-specific notification delivery.
+
+# 9. JOB AGGREGATION AND WEB SCRAPING PIPELINE
+
+THIS IS A VERY IMPORTANT PART OF THE PROJECT.
+
+I have separately uploaded five Python scripts.
+
+Study every script carefully.
+
+Understand the existing workflow and integrate it into the existing PlacementHub application.
+
+Do not simply copy the scripts into the backend without proper integration.
+
+## 9.1 Understand the existing pipeline
+
+The supplied scripts represent these stages:
+
+Stage 1 – Job discovery:
+- Search for internship opportunities through Google/Serper.
+- Identify Greenhouse job-posting links.
+
+Stage 2 – Source-specific extraction:
+- Collect internship information from Internshala.
+- Collect publicly accessible job information from LinkedIn.
+
+Stage 3 – Job-link processing:
+- Read collected job links.
+- Visit permitted public job-detail pages.
+
+Stage 4 – Job-detail extraction:
+- Extract job title.
+- Company name.
+- Location.
+- Internship duration.
+- Stipend, where available.
+- Job application link.
+
+Stage 5 – Consolidation:
+- Store the extracted information in a structured format.
+- Remove duplicate records.
+- Prepare validated job records.
+
+Preserve the useful functionality of these scripts while improving their reliability, maintainability and security.
+
+## 9.2 Build a proper job-aggregation service
+
+Create a separate, modular job-aggregation service integrated with PlacementHub.
+
+Suggested architecture:
+
+- Job discovery service.
+- Serper search integration.
+- Greenhouse integration.
+- Internshala integration, subject to its permitted access methods.
+- LinkedIn integration, subject to its permitted access methods.
+- Job-detail extraction service.
+- Data-cleaning service.
+- Duplicate detection service.
+- Job validation service.
+- Job scheduling service.
+- Aggregation monitoring service.
+
+Use independent modules rather than placing all scraping logic inside a single Flask route.
+
+## 9.3 Company and vacancy information
+
+Extract and normalize the following fields whenever available:
+
+- Job title.
+- Company name.
+- Company website.
+- Company careers page.
+- Job description.
+- Job location.
+- Work mode: Remote / Hybrid / On-site.
+- Internship or full-time classification.
+- Internship duration.
+- Stipend.
+- Salary.
+- Required skills.
+- Qualification.
+- Eligible degree.
+- Eligible department.
+- Experience requirements.
+- Application deadline.
+- Date posted.
+- Source platform.
+- Original job URL.
+- Date collected.
+- Last verified date.
+- Job status.
+
+Do not invent missing information.
+
+Use "Not specified" or NULL when information is unavailable.
+
+Keep the original source URL for verification.
+
+## 9.4 Important: scraping legality and reliability
+
+Do not bypass:
+- CAPTCHA.
+- Authentication.
+- Login restrictions.
+- Anti-bot protections.
+- Rate limits.
+- Access restrictions.
+
+Do not attempt to scrape private LinkedIn information or use unauthorized access methods.
+
+Use official APIs, permitted public endpoints, feeds, or authorized integrations wherever available.
+
+Respect website terms of service, robots.txt where applicable, copyright and applicable Indian laws.
+
+If a website blocks access, record the failure and use an authorized alternative.
+
+Do not make the entire pipeline dependent on one scraping source.
+
+## 9.5 API key security
+
+The uploaded scripts contain a hardcoded Serper API credential.
+
+Treat it as compromised.
+
+Never reuse it.
+
+Never store API keys directly in Python source code.
+
+Use environment variables such as:
+
+SERPER_API_KEY
+
+Store all credentials in protected environment configuration.
+
+Add missing configuration entries to `.env.example` without including actual secrets.
+
+Never expose API keys to the React frontend.
+
+## 9.6 Verification before publishing
+
+Every collected vacancy must initially enter the system as:
+
+DRAFT / PENDING VERIFICATION.
+
+It must NOT automatically become an approved vacancy.
+
+Implement:
+
+1. Duplicate detection.
+2. URL validation.
+3. Company-name validation.
+4. Job-detail validation.
+5. Scam and suspicious-content checks.
+6. Expired-job detection.
+7. Source verification.
+8. Manual administrator review.
+9. Approval and rejection.
+10. Audit history.
+
+Only approved opportunities should become visible to students according to their eligibility.
+
+## 9.7 Scam detection
+
+Develop a basic job-risk detection mechanism.
+
+Flag suspicious opportunities involving:
+
+- Requests for registration fees.
+- Requests for security deposits.
+- Payment demands for interviews.
+- Suspicious application links.
+- Unverified company identities.
+- Misleading salary promises.
+- Missing company details.
+- Suspicious contact information.
+- Potential impersonation of legitimate companies.
+
+Do not automatically declare a company fraudulent based on one indicator.
+
+Use risk levels:
+
+- Low Risk.
+- Medium Risk.
+- High Risk.
+- Requires Manual Review.
+
+Show the reasons for each flag.
+
+Make clear that automated checks are indicators, not proof of legitimacy.
+
+## 9.8 Pipeline automation and monitoring
+
+Implement scheduled job collection.
+
+Provide:
+- Manual pipeline execution.
+- Scheduled execution.
+- Last-run status.
+- Execution logs.
+- Number of jobs discovered.
+- Number of jobs rejected.
+- Number of duplicates.
+- Number of successful extractions.
+- Number of failed requests.
+- Processing duration.
+- Source-specific error reports.
+
+Avoid running multiple overlapping jobs unnecessarily.
+
+Implement retries with exponential backoff, rate limiting and sensible timeouts.
+
+Use a background task system appropriate to the deployment scale.
+
+Do not execute scraping jobs inside ordinary user-facing HTTP requests.
+
+# 10. CYBERSECURITY – HIGHEST PRIORITY
+
+Security is more important than adding visual features.
+
+Conduct a thorough security assessment of the existing application.
+
+Treat the application as a real institutional system containing sensitive student information, resumes, contact details, academic records and recruiter information.
+
+Implement security following OWASP ASVS principles and relevant OWASP Top 10 protections.
+
+## 10.1 Authentication security
+
+- Secure password hashing using Argon2.
+- Strong password policy.
+- Login rate limiting.
+- Brute-force protection.
+- Account lockout.
+- Secure password reset.
+- Short-lived, single-use reset tokens.
+- Secure session management.
+- Session rotation after authentication.
+- Session invalidation after logout.
+- Secure handling of concurrent sessions.
+- Optional two-factor authentication for privileged accounts.
+
+Never store plaintext passwords.
+
+Never email plaintext passwords.
+
+Use secure account activation links instead of sending permanent passwords.
+
+## 10.2 Authorization security
+
+Implement server-side RBAC.
+
+Never trust the role, user ID, department ID or company ID supplied by the frontend.
+
+Check permissions on every protected API endpoint.
+
+Prevent:
+- Broken Access Control.
+- IDOR vulnerabilities.
+- Privilege escalation.
+- Unauthorized record modification.
+- Unauthorized document access.
+- Cross-company data access.
+- Cross-department data access.
+
+Use both role-based permissions and record-level ownership checks.
+
+Deny access by default.
+
+## 10.3 Web application security
+
+Protect against:
+
+- SQL Injection.
+- Cross-Site Scripting (XSS).
+- Cross-Site Request Forgery (CSRF).
+- Server-Side Request Forgery (SSRF).
+- Insecure Direct Object References.
+- Path Traversal.
+- Command Injection.
+- File Upload Attacks.
+- Session Hijacking.
+- Clickjacking.
+- Open Redirects.
+- HTTP Parameter Pollution.
+- Mass Assignment.
+- Information Disclosure.
+- Denial of Service.
+- Broken Authentication.
+- Insecure Deserialization.
+
+Use SQLAlchemy parameterized queries.
+
+Validate and sanitize all user input on the server.
+
+Use a restrictive Content Security Policy.
+
+Configure security headers, including:
+- Strict-Transport-Security.
+- X-Content-Type-Options.
+- X-Frame-Options or an appropriate frame-ancestors policy.
+- Referrer-Policy.
+- Permissions-Policy.
+
+Configure secure CORS policies.
+
+Do not use wildcard CORS in production.
+
+Implement CSRF protection for cookie-authenticated state-changing requests.
+
+Use SameSite cookie settings appropriately.
+
+## 10.4 File security
+
+Resumes, certificates and institutional documents require special protection.
+
+Implement:
+- File extension validation.
+- MIME type validation.
+- File signature validation.
+- File-size restrictions.
+- Randomized server-side filenames.
+- Malware scanning integration where feasible.
+- Safe file storage.
+- Private upload directories.
+- Authorized download endpoints.
+- Download access logging.
+- Path traversal protection.
+- Safe file deletion.
+
+Never expose the uploads folder as a publicly accessible static directory.
+
+Consider storing production documents in private object storage with restricted access and short-lived signed URLs.
+
+## 10.5 Database security
+
+- Use a dedicated database user with minimum privileges.
+- Do not use MySQL root for the application.
+- Use strong passwords.
+- Restrict database network access.
+- Use encrypted connections where appropriate.
+- Protect database credentials.
+- Validate database input.
+- Implement regular backups.
+- Test backup restoration.
+- Prevent unauthorized exports.
+- Protect sensitive records.
+
+## 10.6 Secrets management
+
+Never commit:
+- `.env`.
+- SECRET_KEY.
+- Database passwords.
+- CAPTCHA secret keys.
+- SMTP passwords.
+- Serper API keys.
+- Cloud credentials.
+
+Use environment variables or a proper secrets manager.
+
+Generate a cryptographically secure production SECRET_KEY.
+
+Ensure production startup fails if required security configuration is missing.
+
+Never silently fall back to insecure development configuration.
+
+## 10.7 CAPTCHA
+
+Integrate Cloudflare Turnstile.
+
+Support:
+- Site key in frontend configuration.
+- Secret key in backend environment configuration.
+- Server-side token verification.
+- Verification timeout.
+- Error handling.
+- Failure-safe behavior.
+
+Production must refuse local CAPTCHA mode.
+
+CAPTCHA must not replace login rate limiting or other security controls.
+
+## 10.8 Security audit and logging
+
+Implement security event logging for:
+- Failed login attempts.
+- Successful logins.
+- Password changes.
+- Password resets.
+- Permission changes.
+- Account creation.
+- Account deactivation.
+- Unauthorized access attempts.
+- Document downloads.
+- Bulk imports.
+- Data exports.
+- Administrative actions.
+
+Logs must not contain passwords, authentication tokens, API keys or unnecessary personal information.
+
+Protect audit logs from ordinary users and unauthorized modification.
+
+Implement appropriate retention policies.
+
+# 11. EMAIL AND NOTIFICATION SYSTEM
+
+Implement real SMTP-based email functionality.
+
+Support:
+- Password reset.
+- Account activation.
+- New account invitation.
+- Recruitment drive announcements.
+- Vacancy approval notifications.
+- Student application updates.
+- Interview schedules.
+- Placement updates.
+- Administrative alerts.
+
+Use configurable SMTP settings.
+
+Never expose SMTP credentials.
+
+Implement:
+- Email templates.
+- Proper error handling.
+- Delivery status tracking.
+- Retry mechanisms.
+- Rate limiting.
+- Secure reset links.
+- Expiring tokens.
+
+Do not send plaintext passwords through email.
+
+Use real-time in-app notifications where possible.
+
+Ensure notifications are delivered only to authorized recipients.
+
+# 12. CLOUDFLARE TURNSTILE CONFIGURATION
+
+Configure production CAPTCHA using Cloudflare Turnstile.
+
+Document:
+1. How to create a Turnstile site.
+2. How to obtain the site key.
+3. How to obtain the secret key.
+4. How to configure frontend environment variables.
+5. How to configure backend environment variables.
+6. How to test server-side verification.
+
+Never place the secret key in frontend code.
+
+# 13. PRODUCTION DEPLOYMENT
+
+Prepare the complete application for deployment.
+
+Support a practical production architecture.
+
+Recommended components:
+
+- React frontend.
+- Flask backend.
+- MySQL 8 database.
+- Waitress on Windows or Gunicorn on Linux.
+- Nginx or another suitable HTTPS reverse proxy.
+- Cloudflare for DNS and edge protection where appropriate.
+- Private file storage.
+- SMTP provider.
+- Background job worker.
+- Scheduled job execution.
+- Monitoring and logging.
+
+The application must not rely on the Vite development server in production.
+
+Implement production build and serving configuration.
+
+Set:
+
+APP_ENV=production
+
+SESSION_COOKIE_SECURE=true
+
+CAPTCHA_PROVIDER=turnstile
+
+Configure:
+- HTTPS.
+- Secure cookies.
+- Correct proxy handling.
+- Real client IP handling.
+- Trusted proxy configuration.
+- Request-size limits.
+- Connection timeouts.
+- Application logging.
+- Health-check endpoints.
+- Database connectivity checks.
+- Graceful shutdown.
+- Production error handling.
+
+Never trust arbitrary X-Forwarded-For headers from untrusted clients.
+
+Provide deployment instructions for a realistic production environment.
+
+Do not claim that the application is deployed unless an actual deployment has been completed.
+
+# 14. BACKUP AND DISASTER RECOVERY
+
+Implement a documented backup strategy.
+
+Back up:
+- MySQL database.
+- Uploaded documents.
+- Required configuration references.
+- Important application data.
+
+Provide:
+- Automated scheduled backups.
+- Backup retention.
+- Backup encryption.
+- Restricted backup access.
+- Restoration procedure.
+- Backup verification.
+- Recovery documentation.
+
+Do not store database backups in a publicly accessible directory.
+
+Document the recovery process and recommended RPO/RTO values for the institution to approve.
+
+# 15. DATA PRIVACY AND INSTITUTIONAL COMPLIANCE
+
+The application will handle student and institutional information in India.
+
+Prepare privacy-related functionality consistent with applicable Indian data-protection requirements, including the Digital Personal Data Protection Act, 2023 and applicable rules.
+
+Implement:
+- Privacy notice.
+- Appropriate consent workflows.
+- Purpose limitation.
+- Data minimization.
+- Data access restrictions.
+- Retention configuration.
+- Authorized data export.
+- Data correction workflows.
+- Account deactivation.
+- Secure deletion where legally appropriate.
+- Administrative privacy settings.
+
+Do not assume legal compliance simply because these features exist.
+
+Document the areas requiring institutional legal or data-protection review.
+
+# 16. PERFORMANCE AND SCALABILITY
+
+Optimize the application for multiple simultaneous users.
+
+Implement:
+- Server-side pagination.
+- Database indexes.
+- Optimized SQL queries.
+- Eager loading where appropriate.
+- Connection pooling.
+- Caching where beneficial.
+- Rate limiting.
+- Efficient frontend rendering.
+- Lazy loading where appropriate.
+- Background processing.
+- Proper error handling.
+
+Avoid loading thousands of records into the frontend at once.
+
+Do not introduce unnecessary complexity or infrastructure without a clear requirement.
+
+# 17. FRONTEND FUNCTIONALITY AND RESPONSIVENESS
+
+Maintain the existing interface while ensuring:
+
+- Desktop compatibility.
+- Tablet compatibility.
+- Mobile compatibility.
+- Consistent sidebar behavior.
+- Scrollable long-content areas.
+- Functional forms.
+- Functional buttons.
+- Functional filters.
+- Working search.
+- Working pagination.
+- Working modal dialogs.
+- Proper confirmation messages.
+- Meaningful error messages.
+- Loading indicators.
+- Accessible keyboard navigation.
+
+Check all modules individually.
+
+No decorative button should remain without a working action.
+
+Remove fake interactions and demonstration-only functionality.
+
+Do not remove existing animations or visual effects.
+
+# 18. SAMPLE DATA AND DEMONSTRATION DATA
+
+I DO NOT WANT AUTOMATICALLY GENERATED SAMPLE DATA.
+
+Do not insert:
+- Fake students.
+- Fake companies.
+- Fake recruiters.
+- Fake faculty members.
+- Fake placement records.
+- Fake internship records.
+- Fake job opportunities.
+- Fake notifications.
+- Fake applications.
+- Fake analytics data.
+
+Do not automatically populate the database with invented institutional information.
+
+Do not automatically upload or import sample records.
+
+Do not create demonstration login accounts.
+
+The application should initially contain only the minimum necessary system configuration, such as role definitions and permissions, where required.
+
+Actual institutional information will be entered by authorized administrators.
+
+Create a secure initial setup process.
+
+Add a one-click or CLI-based sample-data cleanup mechanism only if sample data is explicitly introduced during testing. It must never delete genuine institutional records.
+
+# 19. TESTING AND QUALITY ASSURANCE
+
+Create and execute comprehensive tests.
+
+### Backend tests
+
+Test:
+- Authentication.
+- Authorization.
+- RBAC.
+- Department isolation.
+- Company isolation.
+- Student isolation.
+- Database operations.
+- Excel imports.
+- File uploads.
+- File downloads.
+- Password reset.
+- Email integration.
+- Vacancy approval.
+- Student applications.
+- Recruitment drives.
+- Notifications.
+- Job aggregation.
+- Audit logs.
+
+### Security tests
+
+Test:
+- SQL injection.
+- XSS.
+- CSRF.
+- IDOR.
+- Unauthorized API access.
+- Privilege escalation.
+- File upload attacks.
+- Session security.
+- Rate limiting.
+- Input validation.
+- SSRF protection.
+- Unauthorized document downloads.
+
+Use automated security scanning tools where appropriate.
+
+### Frontend tests
+
+Test:
+- Every navigation item.
+- Every form.
+- Every module.
+- Every important button.
+- Every role-specific screen.
+- Responsive layouts.
+- Loading and error states.
+
+### Database tests
+
+Run migrations on MySQL 8.
+
+Test database backup and restoration.
+
+Verify foreign keys and data consistency.
+
+Do not claim a test passed unless it was actually executed.
+
+Document any tests that could not be executed.
+
+# 20. ADDITIONAL FEATURES TO CONSIDER
+
+Inspect the existing application and implement useful missing functionality where appropriate.
+
+Consider:
+
+1. Two-factor authentication for privileged users.
+2. Interview scheduling.
+3. Calendar integration.
+4. Email and WhatsApp notifications through authorized providers.
+5. Advanced placement analytics.
+6. Student eligibility matching.
+7. Company verification records.
+8. Vacancy expiry management.
+9. Audit log protection.
+10. Data export permissions.
+11. System health monitoring.
+12. Background task monitoring.
+13. Automated backup monitoring.
+14. Security incident reporting.
+15. Centralized error monitoring.
+
+Do not add unnecessary features simply to increase complexity.
+
+Prioritize security, reliability and actual institutional requirements.
+
+# 21. GIT AND PROJECT STRUCTURE
+
+Inspect the existing Git configuration.
+
+Update `.gitignore` to exclude at least:
+
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.db
+uploads/
+node_modules/
+dist/
+build/
+coverage/
+test-results/
+logs/
+backup files
+
+Keep `.env.example` with placeholder values.
+
+Never commit real credentials or institutional documents.
+
+Keep the project organized and maintainable.
+
+Avoid unnecessary duplication.
+
+Separate:
+- Routes.
+- Services.
+- Models.
+- Schemas and validation.
+- Authentication.
+- Permissions.
+- Background tasks.
+- Integrations.
+- Configuration.
+- Tests.
+
+# 22. DOCUMENTATION AND DEPLOYMENT GUIDE
+
+Create complete documentation.
+
+Provide:
+
+1. Updated README.
+2. System architecture documentation.
+3. Database architecture.
+4. Entity Relationship Diagram.
+5. API documentation.
+6. Role-permission matrix.
+7. Environment variable reference.
+8. MySQL setup instructions.
+9. Migration instructions.
+10. CAPTCHA configuration guide.
+11. SMTP setup guide.
+12. Job aggregation pipeline documentation.
+13. Security configuration guide.
+14. Local development guide.
+15. Production deployment guide.
+16. Backup and restoration guide.
+17. Administrator user guide.
+18. Student user guide.
+19. Recruiter user guide.
+20. Troubleshooting guide.
+
+Provide exact commands for Windows PowerShell where relevant because I primarily use Windows.
+
+Also provide Linux deployment commands where appropriate.
+
+# 23. REQUIRED FINAL DELIVERABLES
+
+I do not want only an explanation of what should be done.
+
+After completing the modifications, provide:
+
+**Deliverable 1 – Complete updated source code**
+
+Return the complete modified PlacementHub project as a downloadable ZIP.
+
+Do not provide only changed files.
+
+Do not omit existing project components.
+
+**Deliverable 2 – Integrated scraping pipeline**
+
+Include the complete, improved and integrated job-aggregation service.
+
+Include source connectors, validation, duplicate detection, job verification and monitoring.
+
+**Deliverable 3 – Database**
+
+Provide MySQL-compatible migrations and database setup instructions.
+
+**Deliverable 4 – Security**
+
+Provide a security implementation report describing:
+- Vulnerabilities identified.
+- Vulnerabilities fixed.
+- Security improvements implemented.
+- Remaining risks.
+- Required production configuration.
+
+**Deliverable 5 – Testing**
+
+Provide actual test results.
+
+Include:
+- Backend test results.
+- Frontend build results.
+- MySQL migration results.
+- Security test results.
+- Any remaining failures.
+
+**Deliverable 6 – Deployment**
+
+Provide:
+- Production environment template.
+- Deployment configuration.
+- Server startup commands.
+- HTTPS configuration instructions.
+- Backup configuration.
+- Production checklist.
+
+**Deliverable 7 – Documentation**
+
+Include the updated README and all essential technical documentation.
+
+# 24. STRICT DEVELOPMENT RULES
+
+Follow these rules throughout development:
+
+1. Inspect before modifying.
+2. Preserve the existing design.
+3. Preserve existing working functionality.
+4. Never replace real backend functionality with mock data.
+5. Never create fake institutional records.
+6. Never hardcode credentials.
+7. Never expose secrets to the frontend.
+8. Never bypass authorization checks.
+9. Never trust frontend-only validation.
+10. Never silently ignore errors.
+11. Never disable security controls to make functionality work.
+12. Never claim deployment or testing that has not occurred.
+13. Do not delete existing database migrations.
+14. Use backward-compatible database migrations wherever possible.
+15. Maintain existing API compatibility where practical.
+16. Add new functionality without breaking existing modules.
+17. Verify that each new feature works from the frontend through the backend to the database.
+18. Document external services that require my credentials or institutional configuration.
+19. Do not stop after implementing the first few features.
+20. If a requirement cannot be completed because an external credential, service or infrastructure is unavailable, implement the integration properly, document the missing configuration and continue with the remaining work.
+
+If the project is too large to modify in one pass, work systematically in phases while maintaining a persistent implementation checklist. Do not discard previous changes or regenerate the project from scratch.
+
+# FINAL OBJECTIVE
+
+Transform my existing PlacementHub project into a genuinely functional, secure, scalable and deployable institutional Placement Management System.
+
+It must support real students, faculty, placement officers, directors, recruiters and administrators.
+
+It must have real authentication, real database persistence, correct permissions, working workflows, secure document handling, verified job aggregation, notifications, reporting and production deployment support.
+
+**Security, data integrity and functional correctness must take priority over visual changes.**
+
+The final application should look like my existing PlacementHub application, but function like a professionally engineered production software product.
+
+Begin by inspecting all uploaded files, then implement the complete solution.

@@ -1,0 +1,6 @@
+{
+  "name": "PlacementHub - Placement Management System",
+  "description": "Production-ready institutional Placement Management System with 20 modules, RBAC, job aggregation pipeline, and analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
